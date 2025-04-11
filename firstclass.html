@@ -179,24 +179,33 @@
       </div>
       <div class="right-column">
         <div class="box3">
-          <form>
+          <form  >
+            <!-- onsubmit="return validate()" -->
+            <div id="errormessage"></div>
+            <div id="nameError"></div>
+            <div id="emailError"></div>
+            <div id="passwordError"></div>
+            <div id="confimpasswordError"></div>
+            <div id="errorMessageforlocation"></div>
+
+
             <label for="fullname">Full Name</label>
-            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" >
 
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <input type="email" id="email" name="email" placeholder="Enter your email" >
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <input type="password" id="password" name="password" placeholder="Enter your password" >
 
             <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+            <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" >
 
             <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="Enter your location" required>
+            <input type="text" id="location" name="location" placeholder="Enter your location" >
 
             <label for="zipcode">Zip Code</label>
-            <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zip code" required>
+            <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zip code" >
 
             <label for="country">Country</label>
             <select id="country" name="country">
@@ -207,16 +216,19 @@
             </select>
 
             <div class="checkbox">
-              <input type="checkbox" id="terms" name="terms" required>
+              <input type="checkbox" id="terms" name="terms" >
               <label for="terms">I agree to the terms and conditions</label>
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" onclick="return validate()">Submit</button>
           </form>
         </div>
         <div class="box4">Box 4</div>
       </div>
     </div>
   </div>
+  <script src="validation.js">
+
+  </script>
 </body>
 </html>
