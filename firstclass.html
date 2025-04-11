@@ -171,7 +171,7 @@
       <!-- If you upload a picture, replace below line with <img src="your-image.jpg" alt="Logo"> -->
       Logo
     </div>
-    <div class="title">Title</div>
+    <div class="title">Welcome to Today's Air Index Viewport</div>
     <div class="grid">
       <div class="left-column">
         <div class="box1">Box 1</div>
@@ -186,7 +186,11 @@
             <div id="emailError"></div>
             <div id="passwordError"></div>
             <div id="confimpasswordError"></div>
-            <div id="errorMessageforlocation"></div>
+            <div id="locationError"></div>
+            <div id="zipcodeError"></div>
+            <div id="countryError"></div>
+            <div id="termsError"></div>
+
 
 
             <label for="fullname">Full Name</label>
@@ -209,10 +213,11 @@
 
             <label for="country">Country</label>
             <select id="country" name="country">
-              <option value="usa">USA</option>
-              <option value="uk">UK</option>
-              <option value="canada">Canada</option>
-              <option value="Bangladesh">Bangladesh</option>
+              <option value="" disabled selected>Select your country</option>
+              <option value="Bangladesh" >Bangladesh</option>
+              <option value="Uk" >UK</option>
+              <option value="Canada" >Canada</option>
+              <option value="USA" >USA</option>
             </select>
 
             <div class="checkbox">

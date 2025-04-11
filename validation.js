@@ -5,6 +5,10 @@ function validate() {
     if (!validateEmail()) valid = false;
     if (!validatePassword()) valid = false;
     if (!validateConfirmPassword()) valid = false;
+    if (!validateLoaction()) valid = false;
+    if (!validateZipcode()) valid = false;
+    if (!validateCountry()) valid = false;
+    if (!validateTerms()) valid = false;
 
     return valid;
   }
@@ -20,7 +24,7 @@ function validate() {
       errorField.innerHTML = "Please enter a valid name";
       return false;
     } else {
-      errorField.innerHTML = `<span class="success-message">Full Name: ${x}</span>`;
+      errorField.innerHTML = `Full Name: ${x}`;
       return true;
     }
   }
@@ -37,7 +41,7 @@ function validate() {
       errorField.innerHTML = "Please enter a valid email in the format XX-XXXXX-X@student.aiub.edu";
       return false;
     } else {
-      errorField.innerHTML = `<span class="success-message">Valid Email: ${email}</span>`;
+      errorField.innerHTML = `Valid Email: ${email}`;
       return true;
     }
   }
@@ -54,7 +58,7 @@ function validate() {
       errorField.innerHTML = "Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.";
       return false;
     } else {
-      errorField.innerHTML = `<span class="success-message">Valid Password</span>`;
+      errorField.innerHTML = `Valid Password : ${password}`;
       return true;
     }
   }
@@ -71,7 +75,79 @@ function validate() {
       errorField.innerHTML = "Password does not match, please try again!";
       return false;
     } else {
-      errorField.innerHTML = `<span class="success-message">Password Confirmed</span>`;
+      errorField.innerHTML = `Password Confirmed : ${confirmPassword}`;
       return true;
     }
   }
+
+  function validateLoaction() {
+    let location = document.getElementById('location').value;
+    let errorField = document.getElementById('locationError');
+
+    if (location === "") {
+      errorField.innerHTML = "Please enter your location";
+      return false;
+    } else {
+      errorField.innerHTML = `Location: ${location}`;
+      return true;
+    }
+  }
+
+  function validateZipcode() {
+    let zipcode = document.getElementById('zipcode').value;
+    const regex = /^\d{4}$/;
+    let errorField = document.getElementById('zipcodeError');
+
+    if (zipcode === "") {
+      errorField.innerHTML = "Please enter your zipcode";
+      return false;
+    } else if (!regex.test(zipcode)) {
+      errorField.innerHTML = "Please enter a valid 4-digit zipcode";
+      return false;
+    } else {
+      errorField.innerHTML = `Zipcode: ${zipcode}`;
+      return true;
+    }
+  }
+
+  function validateCountry() {
+    let country = document.getElementById('country').value;
+    let errorField = document.getElementById('countryError');
+  
+    if (country === "") {
+      errorField.innerHTML = "Please select your country";
+      return false;
+    } else {
+      errorField.innerHTML = `Country Selected: ${country}`;
+      return true;
+    }
+  }
+
+  function validateTerms() {
+  let checkbox = document.getElementById('terms');
+  let errorField = document.getElementById('termsError');
+
+  if (!checkbox.checked) {
+    errorField.innerHTML = "You must agree to the terms and conditions.";
+    return false;
+  } else {
+    errorField.innerHTML = `Thank you for agreeing!`;
+    return true;
+  }
+}
+
+
+function validateTerms() {
+  let checkbox = document.getElementById('terms');
+  let errorField = document.getElementById('termsError');
+
+  if (!checkbox.checked) {
+    errorField.innerHTML = "You must agree to the terms and conditions.";
+    return false;
+  } else {
+    errorField.innerHTML = `<span class="success-message">Thank you for agreeing!</span>`;
+    return true;
+  }
+}
+
+  
