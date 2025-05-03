@@ -10,7 +10,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-
+ 
     body {
       font-family: Arial, sans-serif;
       display: flex;
@@ -18,19 +18,19 @@
       justify-content: center;
       align-items: center;
       
-      background-color: #f4f4f4;
+      background-color: #11616b;
       width: 100%;
     }
-
+ 
     .container {
       width: 100%;
       display: flex;
       flex-direction: column;
       max-width: 1200px;
-      background: white;
+      background-color: rgb(97, 76, 136);
       padding: 20px;
     }
-
+ 
     .logo {
       width: 120px;
       height: 120px;
@@ -45,42 +45,44 @@
       color: #555;
       overflow: hidden;
     }
-
+ 
     .logo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
+ 
     .title {
       text-align: center;
       font-size: 18px;
       background: #14386e;
       padding: 5px;
       margin-bottom: 10px;
+      font-size: x-large;
+      color: #f4f4f4;
     }
-
+ 
     .grid {
       display: flex;
       width: 100%;
       gap: 5px;
     }
-
+ 
     .left-column {
       flex:1;
       display: flex;
       flex-direction: column;
       gap: 5px;
     }
-
+ 
     .right-column {
       flex:1;
       display: flex;
       flex-direction: column;
       gap: 5px;
     }
-
-    .box1, .box2, .box4 {
+ 
+   .box2, .box4 {
      
       display: flex;
       align-items: center;
@@ -89,22 +91,26 @@
       font-weight: bold;
       border: 1px solid #bbb;
     }
-
+ 
     .box1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background-color: #347a4f;
-      height: 400px;
+      height: 500px;
+     
     }
-
+ 
     .box2 {
       background-color: #14386e;
-      height: 460px;
+      height: 360px;
     }
-
+ 
     .box4 {
       background-color: aquamarine;
       height: 380px;
     }
-
+ 
     .box3 {
       display: flex;
       padding: 20px;
@@ -113,7 +119,7 @@
       width: 100%;
       height: 480px;
     }
-
+ 
     .box3 form {
       flex: 1;
       overflow-y: auto; /*vertically add scrollbar if exit the height of box3*/
@@ -121,24 +127,29 @@
       flex-direction: column; /*column wise */
       gap: 2px;
     }
-
+ 
     label {
       font-size: 14px;
     }
-
+ 
     input, select {
       padding: 8px;
       font-size: 14px;
       border: 1px solid #bbb;
       border-radius: 4px;
     }
-
+ 
     .checkbox {
       display: flex;
       align-items: center;
       gap: 5px;
     }
-
+    .pcolor{
+        display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+ 
     button {
       padding: 10px 20px;
       background-color: rgb(0, 140, 255);
@@ -147,37 +158,114 @@
       border-radius: 4px;
       cursor: pointer;
     }
-
-    button:hover { 
+ 
+    button:hover {
       /* pseudo-class: hover; whole element*/
       background-color: #4553a0;
     }
-
+ 
     .box3 form::-webkit-scrollbar {
       /* pseudo-element: scrollbar; speicfic part*/
       width: 8px;
     }
-
+ 
     .box3 form::-webkit-scrollbar-thumb {
       background-color: #999;
       border-radius: 4px;
     }
-
+ 
     .box3 form {
       scrollbar-width: thin;
     }
+    /* div>table{
+    align-content: center;
+    } */
+    table,th,td {
+        border : 2px solid;
+        border-collapse: collapse;
+    }
+    th,td{
+        text-align: center;
+    }
+ 
+    table {
+    width: 80%;
+    transform: scale(1.1);
+    }
+ 
   </style>
 </head>
 <body>
   <div class="container">
     <div class="logo">
-    <img src="index.jpg" alt="Logo" > 
+    <img src="index.jpg" alt="Logo" >
      
     </div>
     <div class="title">Welcome to Today's Air Index Viewport</div>
     <div class="grid">
       <div class="left-column">
-        <div class="box1">Box 1</div>
+ 
+        <div class="box1">
+            <table  >
+                <caption>Air index of top 10 Cities</caption>
+                <tr>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Air Index</th>
+                </tr>
+                <tr>
+                    <td>New York</td>
+                    <td>USA</td>
+                    <td>7.9</td>
+                </tr>
+                <tr>
+                    <td>Gazipur</td>
+                    <td>Bangladesh</td>
+                    <td>2.8</td>
+                </tr>
+                <tr>
+                    <td>London</td>
+                    <td>UK</td>
+                    <td>4.9</td>
+                </tr>
+                <tr>
+                    <td>California</td>
+                    <td>USA</td>
+                    <td>9.9</td>
+                </tr>
+                <tr>
+                    <td>Las Vegas</td>
+                    <td>USA</td>
+                    <td>6.9</td>
+                </tr>
+                <tr>
+                    <td>Barisal</td>
+                    <td>Bangladesh</td>
+                    <td>4.8</td>
+                </tr>
+                <tr>
+                    <td>Rangpur</td>
+                    <td>Bangladesh</td>
+                    <td>9.0</td>
+                </tr>
+                <tr>
+                    <td>Chattagram</td>
+                    <td>Bangladesh</td>
+                    <td>2.9</td>
+                </tr>
+                <tr>
+                    <td>Shylet</td>
+                    <td>Bangladesh</td>
+                    <td>7.4</td>
+                </tr>
+                <tr>
+                    <td>Cox's Bazar</td>
+                    <td>Bangladesh</td>
+                    <td>5.9</td>
+                </tr>
+            </table>
+        </div>
+ 
         <div class="box2">Box 2</div>
       </div>
       <div class="right-column">
@@ -192,28 +280,29 @@
             <div id="locationError"></div>
             <div id="zipcodeError"></div>
             <div id="countryError"></div>
+            <div id="colorError" ></div>
             <div id="termsError"></div>
-
-
-
+ 
+ 
+ 
             <label for="fullname">Full Name</label>
             <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" >
-
+ 
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" >
-
+ 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" >
-
+ 
             <label for="confirm-password">Confirm Password</label>
             <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" >
-
+ 
             <label for="location">Location</label>
             <input type="text" id="location" name="location" placeholder="Enter your location" >
-
+ 
             <label for="zipcode">Zip Code</label>
             <input type="text" id="zipcode" name="zipcode" placeholder="Enter your zip code" >
-
+ 
             <label for="country">Country</label>
             <select id="country" name="country">
               <option value="" disabled selected>Select your country</option>
@@ -222,13 +311,18 @@
               <option value="Canada" >Canada</option>
               <option value="USA" >USA</option>
             </select>
-
+ 
+            <div class="pcolor">
+            <label for="favcolor">Select your favorite color:</label>
+            <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+            </div>
+ 
             <div class="checkbox">
               
               <label for="terms">I agree to the terms and conditions</label>
-              <input type="checkbox" id="terms" name="terms" >
+<input type="checkbox" id="terms" name="terms" onclick="window.location='https://www.w3schools.com/csS/css3_flexbox.asp';"  >
             </div>
-
+ 
             <button type="submit" onclick="return validate()">Submit</button>
           </form>
         </div>
@@ -237,7 +331,7 @@
     </div>
   </div>
   <script src="validation.js">
-
+ 
   </script>
 </body>
 </html>
