@@ -1,0 +1,445 @@
+demo8.text
+
+index.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP SUCCESS</title>
+</head>
+<body>
+       <h1>PHP INPUT</h1>
+       <form action="external.php" method="post">
+
+        <input type="text" name="uname" placeholder="Name">
+      <!--  <input type="email" name="email" placeholder="Email"> -->
+
+        <input type="submit" name="submit" value="submit"> 
+
+
+       </form>   
+</body>
+</html>
+
+---------------------------------------------
+
+external.php
+
+<?php
+
+// echo "Hi ".$_POST['uname']; // ASSOCIATIVE ARRAY K-V  - SUPERGLOBAL ARRAY
+// echo "<br>".$_POST['email'];
+// echo "<br>".$_GET['uname'];
+
+//var_dump($_GET);
+if (isset($_POST['submit'])) {
+
+if ($_POST['uname'] != "") {
+echo $_POST['uname'];
+}
+else
+    print_r("NO DATA");
+
+}
+else
+    print_r("NO DATA");
+
+?>
+
+
+
+
+demo9.text
+
+
+JS FORM SUBMISSION
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORM SUBMISSION</title>
+</head>
+<body>
+    <h1>FORM</h1>
+    <p id="data"></p>
+    <form action="external.php" method="post" onsubmit="return validate()">
+        <input type="text" name="uname" id="uname">
+        <input type="submit" name="submit" value="submit">
+    </form>
+    <script>
+           
+
+          function validate() {
+            var x = document.getElementById('uname').value;
+              if (x=="") {
+                  document.getElementById('data').innerHTML = "No Data Provided";
+                  return false;
+              }
+          
+          }
+
+    </script>
+</body>
+</html>
+-----------------------------------------------------
+Cookie
+index.php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie</title>
+</head>
+<body>
+
+        <?php
+                setcookie('sectione', '41');                 
+
+        ?>
+
+</body>
+</html>
+
+page1.php
+<?php
+    setcookie('sectione', '41', time()-10); // remove cookie
+
+?>
+
+page2.php
+<?php
+
+    echo $_COOKIE['sectione'];
+
+
+?>
+------------------------------------------------------
+Session
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie</title>
+</head>
+<body>
+
+    <h1>Form</h1>
+    <form action="page1.php" method="post">
+        <input type="text" name="uname" placeholder="Name">
+        <input type="submit" name="submit" value="submit">
+    </form>
+
+</body>
+</html>
+
+page1.php
+
+<?php
+
+        session_start();
+        $_SESSION['username'] = $_POST['uname'];
+        echo "Session has been set";
+
+?>
+
+page2.php
+<?php
+        session_start();
+        if (count($_SESSION) > 0) {
+            echo "Hello ".$_SESSION['username'];
+        }
+        else {
+            echo "No Session Data";
+        }
+
+?>
+logout.php
+<?php
+    session_start();
+
+    session_unset(); // variables nullified
+
+    session_destroy();
+
+?>
+-----------------------------------------------------------
+
+MYSQL DATA FETCH
+
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DB ACCESS</title>
+</head>
+<body>
+        <h1>Form</h1>
+        <form action="process.php" method="post">
+            <input type="text" name="uname" placeholder="Name">
+            <input type="text" name="age" placeholder="Age">
+            <input type="submit" name="submit" value="submit">
+        </form>
+</body>
+</html>
+
+process.php
+
+<?php 
+// INSERT
+//     $uname = $_POST['uname'];
+//     $age = $_POST['age'];
+//     // Connection String
+//     $con = mysqli_connect("localhost", "root", "", "sampledb"); 
+
+//     $sql = "INSERT INTO mytable (name, age) VALUES ('$uname', '$age')";
+
+//    if (mysqli_query($con, $sql)) {
+//     echo "Inserted....";
+//    }
+
+// MODIFY
+
+//     $con = mysqli_connect("localhost", "root", "", "sampledb"); 
+
+//     $sql = "UPDATE mytable SET age = 18 WHERE name ='SAM'";
+
+//        if (mysqli_query($con, $sql)) {
+//         echo "Updated....";
+//    }
+//  READ
+
+    // $con = mysqli_connect("localhost", "root", "", "sampledb"); 
+    // $sql = "SELECT name, age FROM mytable";
+
+    // $obj = mysqli_query($con, $sql);
+
+    // $entry = mysqli_fetch_assoc($obj); // Creating associative array
+    // echo  mysqli_num_rows($obj)."<br>";
+    //     if (mysqli_num_rows($obj) == 1) {
+    // echo $entry['name'];
+    // echo "<br>";
+    // echo $entry['age'];
+    //     }
+
+// DELETE
+
+
+     $con = mysqli_connect("localhost", "root", "", "sampledb"); 
+     $sql = "DELETE FROM mytable WHERE name=\"SAM\"";
+
+    if(mysqli_query($con, $sql)) {
+        echo "Deleted....";
+    }
+
+?>
+
+
+
+
+
+
+
+
+demo10
+
+index.php
+
+<?php
+ if (session_status()>=0){
+//
+      session_start();
+      if(isset($_SESSION["uname"])) {
+            header("refresh: 1; url = private.php");
+           // echo $_SESSION["uname"];
+      }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>PHP APP</title>
+</head>
+<body>
+      <form action="loginprocess.php" method="post">
+      
+            Username<input type="text" name = "uname">
+            Password<input type="password", name = "pass">
+            <input type="submit" name="submit">
+      
+      </form>
+      <a href="signup.php">Sign Up</a>
+</body>
+</html>
+
+---------------------------------------------------------
+loginprocess.php
+
+<?php
+      if (session_status() >= 0){
+            if(isset($_SESSION["uname"])) {
+                  header("refresh: 0.5; url = private.php");
+            }
+      }
+if (isset($_POST["submit"])){
+$uname =$_POST["uname"] ;
+$pass = $_POST["pass"];
+
+$conn = mysqli_connect('localhost', 'root', '', 'app_users');
+$sql = "SELECT *FROM records WHERE username = '$uname' and password = '$pass'";
+
+$result = mysqli_query($conn, $sql);
+$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+$count = mysqli_num_rows($result);
+
+if ($count == 1) {
+      session_start();
+      
+      $_SESSION["uname"] = $uname;
+
+      echo "You are now redirected";
+      header("refresh: 2; url = private.php");
+      exit();
+}
+else{
+      echo "User not found";
+      header("refresh: 2; url = index.php");
+      exit();
+}
+}
+if (!isset($_POST["submit"]))
+      {
+            echo "Fill the username and password."."<br>";
+            header("refresh: 2; url = index.php");
+      }
+      //
+?>
+-------------------------------------------------------------------
+
+private.php
+
+<?php
+$token = "";
+$token2 = "";
+session_start();
+if (isset($_SESSION["uname"])) {
+      echo "Hello, you are now logged in"."<br>";
+      echo "";
+      $token ="signout.php";
+      $token2= "Sign Out";
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>PHP APP</title>
+</head>
+<body>
+<p style="text-align:left">
+<?php
+      if (isset($_SESSION["uname"])) {
+            echo "Username: "."<b style=\"color:red\">".$_SESSION["uname"]."</b><br>";
+            echo "<br>Your Profile Pic:<br>";
+            echo "<img src=\"https://media.gcflearnfree.org/content/5ef2084faaf0ac46dc9c10be_06_23_2020/box_model.png\" width=\"250\">";
+            
+      }
+      //
+?>
+</p>
+<br>
+<a href="index.php">Home</a>
+<a href=<?php echo $token; ?>><?php echo $token2; ?></a> 
+</body>
+</html>
+------------------------------------------------------------------------------
+
+process.php
+
+
+<?php
+if (isset($_POST["submit"])) {
+      if ($_POST["pass"] == $_POST["cpass"]) {
+            $uname = filter_var($_POST["uname"], FILTER_SANITIZE_EMAIL);
+            if (filter_var($uname, FILTER_VALIDATE_EMAIL)) {
+                  $pass = $_POST["pass"];
+                  $conn = mysqli_connect('localhost', 'root', '', 'app_users');
+                  $sql = "INSERT INTO records(username, password) VALUES('$uname', '$pass')";
+                  if (mysqli_query($conn, $sql)) {                   
+                       session_start();               
+                       $_SESSION["uname"] = $_POST["uname"];
+                       echo "Registration Accepted<br>";
+                       header("refresh: 4; url = private.php");     
+                  }     
+            }
+            else {
+                  echo "Email format is not correct.";
+                  header("refresh: 2; url = index.php");
+            }          
+      }
+      else {
+            echo "Please make sure both password fields are same.";
+            header("refresh: 2; url = index.php");         
+      }
+}
+else {
+      if(session_status() == PHP_SESSION_NONE){}
+      header("location:index.php"); 
+      //  
+}
+?>
+------------------------------------------------------------
+signout.php
+
+<?php
+//
+if (session_status() >= 0) {
+
+session_start();
+
+session_unset();
+
+session_destroy();
+echo "You are now redirected";
+}
+
+header("refresh: 2; url = index.php");
+?>
+-----------------------------------------------------------------
+
+signup.php
+
+<?php
+//
+if (session_status() >= 0){
+      session_start();
+     if(isset($_SESSION["uname"])) {
+            header("refresh: 0.5; url = private.php");
+      }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <title>PHP APP</title>
+</head>
+<body>
+      <h2>Registration</h2>
+      <form action="process.php" method="post">
+
+       Email<input type="text" name="uname"><br>   
+       Password<input type="password" name="pass"><br>  
+       Confirm <input type="password" name="cpass"><br>  
+      <input type="submit" name="submit"><br>
+      </form>
+</body>
+</html>

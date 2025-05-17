@@ -306,7 +306,7 @@
       </div>
       <div class="right-column">
         <div class="box3">
-          <form  >
+          <form action="process.php" method="post" id="myForm">
             <!-- onsubmit="return validate()" -->
             <div id="errormessage"></div>
             <div id="nameError"></div>
@@ -356,7 +356,7 @@
             <div class="checkbox">
               
               <label for="terms">I agree to the terms and conditions</label>
-<input type="checkbox" id="terms" name="terms" onclick="window.location='https://www.w3schools.com/csS/css3_flexbox.asp';"  >
+<input type="checkbox" id="terms" name="terms"   > <!-- onclick="window.location='https://www.w3schools.com/csS/css3_flexbox.asp';"-->
             </div>
  
             <button type="submit" onclick="return validate()">Submit</button>
@@ -371,3 +371,55 @@
   </script>
 </body>
 </html>
+
+
+  <!-- 
+demo8.txt
+index.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHP SUCCESS</title>
+</head>
+<body>
+       <h1>PHP INPUT</h1>
+       <form action="external.php" method="post">
+
+        <input type="text" name="uname" placeholder="Name">
+      <!--  <input type="email" name="email" placeholder="Email"> -->
+
+        <input type="submit" name="submit" value="submit"> 
+
+
+       </form>   
+</body>
+</html>
+
+---------------------------------------------
+
+external.php
+
+<?php
+
+// echo "Hi ".$_POST['uname']; // ASSOCIATIVE ARRAY K-V  - SUPERGLOBAL ARRAY
+// echo "<br>".$_POST['email'];
+// echo "<br>".$_GET['uname'];
+
+//var_dump($_GET);
+if (isset($_POST['submit'])) {
+
+if ($_POST['uname'] != "") {
+echo $_POST['uname'];
+}
+else
+    print_r("NO DATA");
+
+}
+else
+    print_r("NO DATA");
+
+?>
+-->
