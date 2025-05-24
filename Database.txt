@@ -1,0 +1,36 @@
+database: aqi
+table: usertable(SL, username,email,password, location,  zipcode,country)
+table: infotable(ID, Country, City, AQI)
+
+or
+CREATE TABLE infotable (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Country VARCHAR(50),
+    City VARCHAR(50),
+    AQI INT
+);
+
+
+inset values:
+INSERT INTO infotable (Country, City, AQI) VALUES
+('Bangladesh', 'Dhaka', 112),
+('China', 'Beijing', 120),
+('India', 'Delhi', 180),
+('United States', 'New York', 45),
+('United Kingdom', 'London', 60),
+('Germany', 'Berlin', 40),
+('France', 'Paris', 55),
+('Japan', 'Tokyo', 35),
+('Australia', 'Sydney', 25),
+('Canada', 'Toronto', 30),
+('Brazil', 'São Paulo', 75),
+('Russia', 'Moscow', 70),
+('South Africa', 'Johannesburg', 90),
+('Mexico', 'Mexico City', 110),
+('Italy', 'Rome', 65),
+('Saudi Arabia', 'Riyadh', 100),
+('South Korea', 'Seoul', 85),
+('Egypt', 'Cairo', 95),
+('Turkey', 'Istanbul', 80),
+('Argentina', 'Buenos Aires', 50);
+ 

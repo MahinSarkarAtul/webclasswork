@@ -82,7 +82,7 @@
       gap: 5px;
     }
  
-   .box2, .box4 {
+   .box2 {
      
       display: flex;
       align-items: center;
@@ -110,6 +110,42 @@
       background-color: aquamarine;
       height: 380px;
     }
+    /* Styles for login form inside box4 */
+.box4 form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.box4 form label {
+  font-size: 14px;
+  font-weight: 600;
+  color:rgb(8, 8, 8); /* Assuming box4 background is dark, adjust if needed */
+}
+
+.box4 form input[type="text"],
+.box4 form input[type="password"] {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+.box4 form button {
+  background-color: #347a4f;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.box4 form button:hover {
+  background-color: #2e6643;
+}
  
     .box3 {
       display: flex;
@@ -362,10 +398,31 @@
             <button type="submit" onclick="return validate()">Submit</button>
           </form>
         </div>
-        <div class="box4">Box 4</div>
+
+
+
+
+
+        <!-- box 4 login -->
+    <div class="box4">
+    <form action="request.php" method="post" id="loginForm">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Enter username" >
+
+    <label for="login-password">Password</label>
+    <input type="password" id="login-password" name="password" placeholder="Enter password" >
+
+    <button type="submit" >Login</button>
+     </form>
+        </div>
+
+
       </div>
     </div>
   </div>
+
+
+
   <script src="validation.js">
  
   </script>
@@ -373,53 +430,3 @@
 </html>
 
 
-  <!-- 
-demo8.txt
-index.php
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP SUCCESS</title>
-</head>
-<body>
-       <h1>PHP INPUT</h1>
-       <form action="external.php" method="post">
-
-        <input type="text" name="uname" placeholder="Name">
-      <!--  <input type="email" name="email" placeholder="Email"> -->
-
-        <input type="submit" name="submit" value="submit"> 
-
-
-       </form>   
-</body>
-</html>
-
----------------------------------------------
-
-external.php
-
-<?php
-
-// echo "Hi ".$_POST['uname']; // ASSOCIATIVE ARRAY K-V  - SUPERGLOBAL ARRAY
-// echo "<br>".$_POST['email'];
-// echo "<br>".$_GET['uname'];
-
-//var_dump($_GET);
-if (isset($_POST['submit'])) {
-
-if ($_POST['uname'] != "") {
-echo $_POST['uname'];
-}
-else
-    print_r("NO DATA");
-
-}
-else
-    print_r("NO DATA");
-
-?>
--->

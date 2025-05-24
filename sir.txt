@@ -251,6 +251,8 @@ process.php
 
 demo10
 
+
+
 index.php
 
 <?php
@@ -443,3 +445,100 @@ if (session_status() >= 0){
       </form>
 </body>
 </html>
+
+
+
+
+
+
+
+demo11.txt
+read a file
+
+    <?php
+
+        echo readfile("demo.txt");
+    ?>
+.........................................
+
+read from multiline file
+
+    <?php
+           $myfile = fopen("demo.txt", "r");
+           
+           while (!feof($myfile)) {
+            echo fgets($myfile)."<br>";
+           }
+           
+    ?>
+...............................................
+write to file
+
+    <?php
+           $myfile = fopen("demo.txt", "w");
+
+            fwrite($myfile, "Wednesday\n");
+            fwrite($myfile, "Thursday\n");
+           
+    ?>
+................................................
+
+append to file
+
+    <?php
+           $myfile = fopen("demo.txt", "a");
+
+        fwrite($myfile, "Friday");
+           
+    ?>
+...................................................
+JSON
+
+        <?php
+            $string = '{"name":"sam", "age":23, "status":"dead",
+                        "grade": {"CHEM" : "A", "PHY" : "A+"}
+            }';
+             $person = json_decode($strin, true); // associative array conversion    
+
+            foreach($person as $key => $value) {
+                    if (is_array($value)) {
+                        foreach($value as $k => $v) {
+                       echo $k.": ".$v."<br>"; }
+                    }else 
+                echo $key.": ".$value."<br>";}
+            
+            //echo $person->name; //arrow notation
+            // echo $person['name'];//
+            // echo $person->grade->PHY;
+        ?>
+................................................
+
+simple validation
+     <?php
+
+            $var = 123;
+            // echo isset($var);
+            // echo "<br>";
+            // echo empty($var);
+            //if(is_integer($var)) {echo "yes";}
+        ?>
+..................................................
+regex
+
+   <?php
+            // Regular Expression
+
+            $var = "cat cat cat";
+            $var2 = 123;
+            // $pattern = "/[a-z]/"; // character set   
+           // $pattern = "/(cat)/";  // grouping character -> for 1 on 1 matching
+          // $pattern = "/[a-z]/i"; // case insensitive 
+        //    $pattern = "/(cat)*/"; // 0 or ore
+        // $pattern = "/[cat]/";  // 1 or more
+        // $pattern= "/[0-9]/";
+        $pattern= "/\d/";
+           if(preg_match($pattern, $var2))
+                echo "It's a match";
+            else
+                echo "Not a match";
+        ?>
