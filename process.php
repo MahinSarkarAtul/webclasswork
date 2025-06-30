@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-// Step 1: Store form values in session after the first form submission (in request.php)
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['confirm'])) {
-    // Store form data in the session
+
+// Handle form submission before checking session
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['confirm'])) {
     $_SESSION['fullname'] = $_POST['fullname'];
     $_SESSION['email'] = $_POST['email'];
     $_SESSION['password'] = $_POST['password'];
@@ -12,33 +12,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['confirm'])) {
     $_SESSION['country'] = $_POST['country'];
     $_SESSION['favcolor'] = $_POST['favcolor'];
 
-    // Redirect to the same page to show the confirmation table
     header("Location: process.php");
     exit();
 }
 
-// Initialize success and error variables
+// Check if required session data is present
+if (
+    !isset($_SESSION['fullname']) ||
+    !isset($_SESSION['email']) ||
+    !isset($_SESSION['password']) ||
+    !isset($_SESSION['location']) ||
+    !isset($_SESSION['zipcode']) ||
+    !isset($_SESSION['country']) ||
+    !isset($_SESSION['favcolor'])
+) {
+    header("Location: index.php");
+    exit();
+}
+
 $success = false;
 $error = "";
 
-// Step 2: If the "Confirm" button is pressed, insert data into the database
+// Confirm registration and insert into DB
 if (isset($_POST['confirm'])) {
-    // Retrieve values from session
     $fullname = $_SESSION['fullname'];
     $email = $_SESSION['email'];
-    $password = $_SESSION['password']; // Plain text password
+    $password = $_SESSION['password'];
     $location = $_SESSION['location'];
     $zipcode = $_SESSION['zipcode'];
     $country = $_SESSION['country'];
-    $favcolor = $_SESSION['favcolor']; // Favorite color to be saved in the cookie
+    $favcolor = $_SESSION['favcolor'];
 
-    // Database connection
-    $con = mysqli_connect("localhost", "root", "", "aqi"); // Replace with your DB credentials
+    $con = mysqli_connect("localhost", "root", "", "aqi");
     if (!$con) {
-        die("Connection failed: " . mysqli_connect_error());
+        die("Database connection failed: " . mysqli_connect_error());
     }
 
-    // Escape input values for safety
+    // Escape input
     $fullname = mysqli_real_escape_string($con, $fullname);
     $email = mysqli_real_escape_string($con, $email);
     $password = mysqli_real_escape_string($con, $password);
@@ -46,20 +56,18 @@ if (isset($_POST['confirm'])) {
     $zipcode = mysqli_real_escape_string($con, $zipcode);
     $country = mysqli_real_escape_string($con, $country);
 
-    // Check if email already exists
-    $checkEmailQuery = "SELECT * FROM usertable WHERE email = '$email'";
-    $result = mysqli_query($con, $checkEmailQuery);
+    // Check duplicate
+    $checkEmail = "SELECT * FROM usertable WHERE email = '$email'";
+    $result = mysqli_query($con, $checkEmail);
 
     if (mysqli_num_rows($result) > 0) {
-        // Email already registered
-        $error = "This email is already registered. Please use another email.";
+        $error = "This email is already registered. Please use another.";
     } else {
-        // Insert new user
-        $sql = "INSERT INTO usertable (username, email, password, location, zipcode, country) 
-                VALUES ('$fullname', '$email', '$password', '$location', '$zipcode', '$country')";
-        if (mysqli_query($con, $sql)) {
-            // Set cookie for favorite color
-            setcookie("favcolor", $favcolor, time() + (30 * 24 * 60 * 60), "/"); // 30 days expiry
+        $insert = "INSERT INTO usertable (username, email, password, location, zipcode, country) 
+                   VALUES ('$fullname', '$email', '$password', '$location', '$zipcode', '$country')";
+
+        if (mysqli_query($con, $insert)) {
+            setcookie("favcolor", $favcolor, time() + (30 * 24 * 60 * 60), "/");
             $_SESSION['registration_success'] = "Your registration is done, please login.";
             $success = true;
         } else {
@@ -70,17 +78,16 @@ if (isset($_POST['confirm'])) {
     mysqli_close($con);
 }
 
-// Step 3: Display the confirmation page (if not confirmed yet)
-if (!isset($_POST['confirm'])) {
-    $fullname = $_SESSION['fullname'];
-    $email = $_SESSION['email'];
-    $password = $_SESSION['password'];
-    $location = $_SESSION['location'];
-    $zipcode = $_SESSION['zipcode'];
-    $country = $_SESSION['country'];
-    $favcolor = $_SESSION['favcolor'];
-}
+// Assign values for display
+$fullname = $_SESSION['fullname'];
+$email = $_SESSION['email'];
+$password = $_SESSION['password'];
+$location = $_SESSION['location'];
+$zipcode = $_SESSION['zipcode'];
+$country = $_SESSION['country'];
+$favcolor = $_SESSION['favcolor'];
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -161,6 +168,13 @@ if (!isset($_POST['confirm'])) {
         border-radius: 5px;
     }
 </style>
+ <script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+  </script>
 </head>
 <body>
     <div class="container">
@@ -195,5 +209,14 @@ if (!isset($_POST['confirm'])) {
             </form>
         </div>
     </div>
+<script>
+    window.addEventListener("pageshow", function(event) {
+        if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+            window.location.reload();
+        }
+    });
+</script>
+
+
 </body>
 </html>

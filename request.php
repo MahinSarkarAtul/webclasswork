@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+// Check if user is logged in; if not, redirect to login page
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: index.php");
+    exit();
+}
+
+// Prevent caching to avoid back button showing after logout
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+header("Pragma: no-cache"); // HTTP 1.0.
+header("Expires: 0"); // Proxies
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,9 +94,19 @@
   }
 </style>
 
+ <script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+  </script>
+
 </head>
 <body>
   <h1>Please Select Exactly 10 Cities</h1>
+  <!-- Display username -->
+  <p>Logged in as: <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></p>
   <form id="cityForm" action="show.php" method="post" onsubmit="return validateSelection()">
     <div class="cities-container">
       <label><input type="checkbox" name="cities[]" value="Dhaka"> Dhaka</label>
@@ -108,6 +133,7 @@
 
     <div class="buttons-wrapper">
       <a href="index.php" class="back-button" role="button">Back</a>
+        <a href="logout.php" class="back-button" role="button" style="background-color: #555;">Logout</a>
       <button type="submit">Submit</button>
     </div>
   </form>

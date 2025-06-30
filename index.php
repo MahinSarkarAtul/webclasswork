@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// Redirect logged-in users to protected page
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    header("Location: request.php");
+    exit();
+}
+
+// Prevent caching of login page
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,6 +275,13 @@
 
  
   </style>
+  <script>
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+</script>
 </head>
 <body>
   <div class="container">
@@ -405,14 +428,14 @@
 
         <!-- box 4 login -->
     <div class="box4">
-    <form action="request.php" method="post" id="loginForm">
+    <form action="loginprocess.php" method="post" id="loginForm">
     <label for="username">Username</label>
     <input type="text" id="username" name="username" placeholder="Enter username" >
 
-    <label for="login-password">Password</label>
-    <input type="password" id="login-password" name="password" placeholder="Enter password" >
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter password" >
 
-    <button type="submit" >Login</button>
+    <input type="submit" name="submit" id="submit" value="Log In" >
      </form>
         </div>
 

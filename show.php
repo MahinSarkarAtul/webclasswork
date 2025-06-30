@@ -1,4 +1,19 @@
 <?php
+session_start();
+
+
+// Cache-control headers to prevent caching
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+header("Expires: 0");
+
+// Check login status
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+    exit();
+}
+
 // Connect to DB
 $con = mysqli_connect("localhost", "root", "", "aqi");
 if (!$con) {
@@ -24,6 +39,15 @@ $result = mysqli_query($con, $sql);
 if (!$result) {
     die("Query failed: " . mysqli_error($con));
 }
+
+$favcolor = "#f5f5f5"; // default background color
+
+if (isset($_COOKIE['favcolor'])) {
+    $favcolor_raw = trim($_COOKIE['favcolor']);
+    if (preg_match('/^#[0-9a-fA-F]{3,6}$/', $favcolor_raw) || preg_match('/^[a-zA-Z]+$/', $favcolor_raw)) {
+        $favcolor = htmlspecialchars($favcolor_raw);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,13 +58,14 @@ if (!$result) {
 <title>Selected Cities AQI</title>
 <style>
     body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-        max-width: 700px;
-        margin: auto;
-        background-color: #f5f5f5;
-        color: #333;
-    }
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+    background-color: <?php echo $favcolor; ?>;
+    color: #333;
+}
+
     h1 {
         text-align: center;
         margin-bottom: 20px;
@@ -93,9 +118,17 @@ if (!$result) {
         background-color: #3e8e41;
     }
 </style>
+ <script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+  </script>
 </head>
 <body>
   <h1>Air Quality Index for Selected Cities</h1>
+   <p>Logged in as: <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></p>
 
   <?php if (mysqli_num_rows($result) === 0): ?>
     <p>No data found for the selected cities.</p>
@@ -120,15 +153,13 @@ if (!$result) {
     </table>
   <?php endif; ?>
 
-  <div class="buttons-wrapper">
-    <a href="request.php" class="btn btn-back">Back</a>
+<div class="buttons-wrapper">
+  <a href="request.php" class="btn btn-back">Back</a>
 
-    <?php /*
-    <form action="logout.php" method="post" style="margin: 0;">
-      <button type="submit" class="btn btn-logout" name="logout">Logout</button>
-    </form>
-    */ ?>
-  </div>
+  <form action="logout.php" method="post" style="margin: 0;">
+    <button type="submit" class="btn btn-logout" name="logout">Logout</button>
+  </form>
+</div>
 
 <?php mysqli_close($con); ?>
 </body>

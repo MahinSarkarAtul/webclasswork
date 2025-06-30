@@ -1,0 +1,5 @@
+window.history.pushState(null, '', window.location.href);
+window.onpopstate = function () {
+    // User pressed back button
+    window.location.href = 'somepage.php'; // redirect to a safe page or reload
+};
